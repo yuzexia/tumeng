@@ -1,13 +1,13 @@
 {
     "pages": [
         "pages/index/main",
-        "pages/logs/main"
+        "pages/snapshot/main"
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "WeChat",
-        "navigationBarTextStyle": "black"
+        "navigationBarBackgroundColor": "#FF88AF",
+        "navigationBarTitleText": "背景图",
+        "navigationBarTextStyle": "white"
     },
     "tabBar": {
         "color": "#999",
@@ -16,25 +16,25 @@
         "borderStyle": "white",
 
         "list": [{
-            "text": "自拍",
+            "text": "背景图",
             "pagePath": "pages/index/main",
             "iconPath": "static/tabs/home.png",
             "selectedIconPath": "static/tabs/home-active.png"
         }, {
-            "text": "订单",
-            "pagePath": "pages/logs/main",
+            "text": "表情包",
+            "pagePath": "pages/snapshot/main",
             "iconPath": "static/tabs/orders.png",
             "selectedIconPath": "static/tabs/orders-active.png"
         }],
 
         "items": [{
-            "name": "自拍",
+            "name": "背景图",
             "pagePath": "pages/index/main",
             "icon": "static/tabs/home.png",
             "activeIcon": "static/tabs/home-active.png"
         }, {
-            "name": "订单",
-            "pagePath": "pages/logs/main",
+            "name": "表情包",
+            "pagePath": "pages/snapshot/main",
             "icon": "static/tabs/orders.png",
             "activeIcon": "static/tabs/orders-active.png"
         }],
