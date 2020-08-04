@@ -1,38 +1,21 @@
 <template>
   <div class="box">
-    <div class="item" v-for="(itl, index) in imageUrls" :key="index">
-      <div class="date">
-        <p>
-          {{itl.title}}
-        </p>
-      </div>
-      <div class="images-box">
-        <div class="images-i-box">
-          <!-- <div v-for="(item, i) in itl.data" :key="i" :class="{ 'than-nine' : i == 8}"> -->
-          <div v-for="(item, i) in itl.data" :key="i">
-            <!-- <p style="font-size: 12px;color:eee;margin:5px;background:blue;">
-              i: {{i}}- Number(i): {{i == 8}}
-            </p> -->
-            <img class="img-itm" :class="{ 'than-nine' : i == 8}" mode="aspectFill" :src="item" alt="" @tap="previewImage(itl.data, i)" v-if="i < 9">
-            <i v-if="i == 8">+{{itl.data.length - 9}}</i>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ImgItem v-for="(itl, index) in wallpaperData" :key="index" :list="itl"></ImgItem>
   </div>
 </template>
 
 <script>
-import card from '@/components/card'
+import ImgItem from '@/components/imgItem'
 
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
       userInfo: {
         nickName: 'mpvue',
         avatarUrl: 'http://mpvue.com/assets/logo.png'
       },
+      wallpaper: [],
+      // init数据
       imageUrls: [
         {
           'title': '文字朋友圈背景图 | 7.30',
@@ -161,21 +144,66 @@ export default {
       ]
     }
   },
-
   components: {
-    card
+    ImgItem
   },
-
+  computed: {
+    wallpaperData () {
+      return this.wallpaper
+    }
+  },
+  beforeMount () {},
+  mounted () {
+    this.getImageData()
+    // this.getShanbay()
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
+  },
   methods: {
-    previewImage (data, i) {
-      wx.previewImage({
-        current: data[i], // 当前显示图片的http链接
-        urls: data, // 需要预览的图片http链接列表,
-        success: () => {
-          console.log('success')
+    getImageData () {
+      let _this = this
+      wx.request({
+        // url: 'https://gitee.com/white_/tumengData/raw/master/data.json',
+        // url: 'http://qej34q4yf.bkt.clouddn.com/data.json?v=' + new Date().getTime(),
+        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/data.json?v=' + new Date().getTime(),
+        data: {},
+        method: 'get',
+        header: {
+          'content-type': 'application/json'
         },
-        fail: () => {
-          console.log('fail')
+        success (res) {
+          _this.wallpaper = res.data.wallpaper
+          // wx.showToast({
+          //   title: '成功',
+          //   icon: 'success',
+          //   duration: 2000
+          // })
+        },
+        error (err) {
+          console.log('error:::', err)
+          wx.showToast({
+            title: '出错啦0.0~请稍后再试~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    },
+    // 获取扇贝每日一句
+    getShanbay () {
+      wx.request({
+        url: 'https://rest.shanbay.com/api/v2/quote/quotes/today/',
+        data: {},
+        header: {
+          'content-type': 'application/json'
+        },
+        success (res) {
+          console.log('res:::', res)
+        },
+        error (err) {
+          console.log('error:::', err)
         }
       })
     }
@@ -187,107 +215,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box {
-  // box-sizing: border-box;
-  .item {
-    background: #eee;
-    .date{
-      padding-left: 20px;
-      width: 100%;
-      height: 30px;
-      line-height: 30px;
-      font-size: 14px;
-      color: #999;
-      box-sizing: border-box;
-      // background: red;
-      p{
-        position: relative;
-        text-indent: 15px;
-        border-left: 1px solid #C0C0C0;
-        // background: red;
-        &:before{
-          content: '';
-          position: absolute;
-          top: calc(50% - 4px);
-          left: -5px;
-          display: inline-block;
-          width: 7px;
-          height: 7px;
-          background: #fff;
-          border: 1px solid #c0c0c0;
-          border-radius: 7px;
-        }
-      }
-    }
-    .images-box {
-      position: relative;
-      width: 95%;
-      // padding: 10px 0 0;
-      padding:0 0 15px 35px;
-      font-size: 0;
-      box-sizing: border-box;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 20px;
-        bottom: 0;
-        width: 1px;
-        height: auto;
-        background: #c0c0c0;
-      }
-      .than-nine{
-        position:relative;
-        // position: absolute;
-        // top: 50%;
-        // left: 50%;
-        font-size: 16px;
-        color: #f00;
-        &:before{
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, .5);
-        }
-      }
-      .images-i-box{
-        // position: relative;
-        width: 100%;
-        padding-top: 10px;
-        background: #fff;
-        // background: green;
-        & > div{
-          position: relative;
-          display: inline-block;
-          width: 30%;
-          margin-left: 2.5%;
-        }
-        i {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform:translate(-50%,-50%);
-          -webkit-transform:translate(-50%,-50%);
-          -moz-transform:translate(-50%,-50%);
-          -ms-transform:translate(-50%,-50%);
-          width: 100%;
-          text-align: center;
-          pointer-events: none;
-          font-size: 20px;
-          color: #fff;
-        }
-      }
-      .img-itm{
-        // display: inline-block;
-        width: 100%;
-        height: 120px;
-        margin-bottom: 10px;
-        background: gray;
-      }
-    }
-  }
-}
+.box {}
 </style>

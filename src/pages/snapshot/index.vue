@@ -1,6 +1,6 @@
 <template>
   <div class="snap-box">
-    <div class="item" v-for="(itl, index) in imgUrls" :key="index">
+    <div class="item" v-for="(itl, index) in emoticonData" :key="index">
       <div class="date">
         <p>
           {{itl.title}}
@@ -8,7 +8,6 @@
       </div>
       <div class="images-box">
         <div class="images-i-box">
-          <!-- <img class="img-itm" v-for="(item, i) in imgData" :key="i" :style="{ backgroundImage: 'url(' + item + ')'}" alt=""> -->
           <img class="img-itm" mode="aspectFill" lazy-load="true" v-for="(item, i) in itl.data" :key="i" 
               :src="item"
               @tap="previewImage(itl.data, i)">
@@ -19,11 +18,11 @@
 </template>
 
 <script>
-import card from '@/components/card'
 
 export default {
   data () {
     return {
+      emoticon: [],
       imgUrls: [
         {
           'title': '搞笑表情包实在太赞啦',
@@ -138,8 +137,22 @@ export default {
       ]
     }
   },
-  components: {
-    card
+  computed: {
+    emoticonData () {
+      return this.emoticon
+    }
+  },
+  components: {},
+  created () {
+    // this.$cookie.set('test', 'hello world', 1)
+    // console.log(Vue)
+  },
+  mounted () {
+    this.getEmoticon()
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
   methods: {
     previewImage (data, i) {
@@ -153,10 +166,24 @@ export default {
           console.log('fail')
         }
       })
+    },
+    getEmoticon () {
+      let _this = this
+      wx.request({
+        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/data.json?v=' + new Date().getTime(),
+        data: {},
+        method: 'GET',
+        header: {
+          'content-type': 'application/json'
+        },
+        success (res) {
+          _this.emoticon = res.data.emoticon
+        },
+        error (err) {
+          console.log('error:::', err)
+        }
+      })
     }
-  },
-  created () {
-    // let app = getApp()
   }
 }
 </script>
