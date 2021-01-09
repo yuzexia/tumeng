@@ -1,11 +1,12 @@
 <template>
   <div class="box">
     <ImgItem v-for="(itl, index) in wallpaperData" :key="index" :list="itl"></ImgItem>
+    <!-- <div class="">hello everyone</div> -->
   </div>
 </template>
 
 <script>
-import ImgItem from '@/components/mainItem'
+import ImgItem from '@/components/imgItem'
 
 export default {
   data () {
@@ -251,7 +252,7 @@ export default {
   },
   computed: {
     wallpaperData () {
-      return this.wallpaper.slice(0, 2)
+      return this.wallpaper
     }
   },
   beforeMount () {},
@@ -338,7 +339,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box {
-  background: #eee;
-}
+.box {}
 </style>
