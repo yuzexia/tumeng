@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <ImgItem v-for="(itl, index) in wallpaperData" :key="index" :list="itl"></ImgItem>
-    <!-- <div class="">hello everyone</div> -->
+    
   </div>
 </template>
 
@@ -291,14 +291,15 @@ export default {
       wx.request({
         // url: 'https://gitee.com/white_/tumengData/raw/master/data.json',
         // url: 'http://qej34q4yf.bkt.clouddn.com/data.json?v=' + new Date().getTime(),
-        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/data.json?v=' + new Date().getTime(),
+        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/albumCover.json?v=' + new Date().getTime(),
         data: {},
         method: 'get',
         header: {
           'content-type': 'application/json'
         },
         success (res) {
-          _this.wallpaper = res.data.wallpaper
+          _this.wallpaper = res.data.moments
+          console.log('res:::::', res)
           // wx.showToast({
           //   title: '成功',
           //   icon: 'success',

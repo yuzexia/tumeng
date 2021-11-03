@@ -8,9 +8,12 @@
       </div>
       <div class="images-box">
         <div class="images-i-box">
-          <img class="img-itm" mode="aspectFill" lazy-load="true" v-for="(item, i) in itl.data" :key="i" 
+          <img class="img-itm" mode="scaleToFill" lazy-load="true" v-for="(item, i) in itl.data" :key="i" 
               :src="item"
               @tap="previewImage(itl.data, i)">
+        </div>
+        <div class="banner-ad">
+          <ad unit-id="adunit-8ce1d72d244ab333"></ad>
         </div>
       </div>
     </div>
@@ -170,7 +173,7 @@ export default {
     getEmoticon () {
       let _this = this
       wx.request({
-        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/data.json?v=' + new Date().getTime(),
+        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/emoticon.json?v=' + new Date().getTime(),
         data: {},
         method: 'GET',
         header: {
@@ -190,55 +193,24 @@ export default {
 
 <style lang="scss">
 .snap-box {
-  // box-sizing: border-box;
   .item {
     background: #eee;
     .date{
-      padding-left: 20px;
       width: 100%;
-      height: 30px;
-      line-height: 30px;
-      font-size: 14px;
-      color: #999;
-      box-sizing: border-box;
-      // background: red;
+      height: 35px;
+      line-height: 35px;
       p{
         position: relative;
-        text-indent: 15px;
-        border-left: 1px solid #C0C0C0;
-        // background: red;
-        &:before{
-          content: '';
-          position: absolute;
-          top: calc(50% - 4px);
-          left: -5px;
-          display: inline-block;
-          width: 7px;
-          height: 7px;
-          background: #fff;
-          border: 1px solid #c0c0c0;
-          border-radius: 7px;
-        }
+        font-size: 14px;
+        text-indent: 10px;
+        color: #FF88AF;
       }
     }
     .images-box {
       position: relative;
-      width: 95%;
-      // padding: 10px 0 0;
-      padding:0 0 15px 35px;
+      width: 100%;
       font-size: 0;
       box-sizing: border-box;
-      // background: red;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 20px;
-        bottom: 0;
-        width: 1px;
-        height: auto;
-        background: #c0c0c0;
-      }
       .images-i-box{
         padding-top: 10px;
         background: #fff;
@@ -246,11 +218,14 @@ export default {
       .img-itm{
         display: inline-block;
         margin: 0 0 10px 2.5%;
-        width: 45%;
-        height: 160px;
-        // background-repeat: no-repeat;
-        // background-position: center;
-        // background-size: cover;
+        width: 30%;
+        height: 120px;
+        border-radius: 5px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, .5);
+      }
+      .banner-ad{
+        padding: 5px;
+        background: #FF88AF;
       }
     }
   }

@@ -1,8 +1,8 @@
 {
     "pages": [
-        "pages/index/main",
         "pages/moment/main",
-        "pages/snapshot/main"
+        "pages/snapshot/main",
+        "pages/index/main"
     ],
     "window": {
         "backgroundTextStyle": "light",
