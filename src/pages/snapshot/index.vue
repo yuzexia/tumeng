@@ -173,7 +173,7 @@ export default {
     getEmoticon () {
       let _this = this
       wx.request({
-        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/emoticon.json?v=' + new Date().getTime(),
+        url: 'https://try.gitea.io/0xYuze/wallpapers/raw/branch/master/emoticon.json?v=' + new Date().getTime(),
         data: {},
         method: 'GET',
         header: {

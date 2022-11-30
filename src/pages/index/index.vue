@@ -290,7 +290,7 @@ export default {
       wx.request({
         // url: 'https://gitee.com/white_/tumengData/raw/master/data.json',
         // url: 'http://qej34q4yf.bkt.clouddn.com/data.json?v=' + new Date().getTime(),
-        url: 'https://code.aliyun.com/392958774/tumengimg/raw/master/data.json?v=' + new Date().getTime(),
+        url: 'https://try.gitea.io/0xYuze/wallpapers/raw/branch/master/data.json?v=' + new Date().getTime(),
         data: {},
         method: 'get',
         header: {
